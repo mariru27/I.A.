@@ -1,0 +1,80 @@
+#include <iostream>
+#include<vector>
+
+using namespace std;
+
+class Queen {
+private:
+	int row;
+	int column;
+public:
+	Queen(int row = 0, int colum = 0) {
+		this->row = row;
+		this->column = column;
+	}
+	void setRow(int row) { this->row = row; };
+
+	void setColumn(int column) { this->column = column; };
+
+	int getRow() { return row; }
+
+	int getColumn() { return column; }
+};
+
+int n = 5;
+
+Queen q[5];
+
+void print() {
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			if ((q[i].getRow() == i) && (q[i].getColumn() == j)) {
+				cout << " o ";
+			}
+			else {
+				cout << " H ";
+			}
+		}
+		cout << endl;
+	}
+	cout << endl;
+}
+
+bool verified(int k) {
+	for (int i = 0; i < k; i++) {
+		int x, y;
+		x = abs(q[i].getRow() - q[k].getRow());
+		y = abs(q[i].getColumn() - q[k].getColumn());
+		if ((q[i].getColumn() == q[k].getColumn()) || (q[i].getRow() == q[k].getRow()) || (x == y))
+			return false;
+	}
+	return true;
+}
+
+bool backtraking(int k) {
+	if (k == n) {
+		print();
+		return true;
+	}
+	else {
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				q[k].setRow(i);
+				q[k].setColumn(j);
+				if (verified(k) == true) {
+					bool a = backtraking(k + 1);
+					if (a == true)
+						return true;
+				}
+			}
+		}
+	}
+	return false;
+}
+
+int main(int argc, const char * argv[]) {
+	backtraking(0);
+	cout << endl;
+	system("pause");
+	return 0;
+}
