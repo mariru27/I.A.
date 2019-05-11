@@ -1,0 +1,119 @@
+#include<iostream>
+
+int t[10][10]{};
+char s[10];
+struct memo {
+	int suma = 0;
+	char nume = ' ';
+};
+memo path[20], visited[20];
+
+void printPath(int n) {
+	for (int i = 0; i <= n; i++) {
+		std::cout << path[i].suma << " " << path[i].nume;
+		std::cout << std::endl;
+	}
+}
+
+int min(int n) {
+	int m = 100000; 
+	int k = -1;
+	for (int i = 0; i <= n; i++) {
+		if (m > path[i].suma && path[i].suma != 0) {
+			m = path[i].suma;
+			k = i;
+		}
+	}
+	return k;
+}
+
+bool verificateVisitedNods(int n,char letter) {
+	for (int i = 0; i <= n; i++) {
+		if (visited[i].nume == letter)
+			return false;
+	}
+	return true;
+}
+
+void main() {
+	s[0] = 'A';
+	s[1] = 'B';
+	s[2] = 'C';
+	s[3] = 'D';
+	s[4] = 'E';
+	enum Orase {
+		A,
+		B,
+		C,
+		D,
+		E
+	};
+
+	t[A][B] = 15;
+	t[B][A] = 15;
+	t[B][C] = 20;
+	t[C][B] = 20;
+	t[C][D] = 40;
+	t[D][C] = 40;
+	t[D][E] = 30;
+	t[E][D] = 30;
+	t[A][E] = 25;
+	t[E][A] = 25;
+	t[A][C] = 10;
+	t[C][A] = 10;
+	t[B][D] = 30;
+	t[D][B] = 30;
+	//for (int i = 0; i < 5; i++) {
+	//	for (int j = 0; j < 5; j++) {
+	//		std::cout << t[i][j] << " ";
+	//	}
+	//	std::cout << std::endl;
+	//}
+	int k = 0;
+	path[k].nume = 'A';
+	visited[k].nume = 'A';
+	path[k].suma = 0;
+	visited[k].suma = 0;
+
+	for (int i = A; i <= E; i++) {
+		if (t[0][i] != 0) {
+			k++;
+			path[k].nume = s[i];
+			path[k].suma = t[0][i];
+		}
+	}
+	
+	bool found = false;
+	int nrVisited = 0;
+	int solution = 100000;
+
+	while (found == false) {
+		if (min(k) == -1)
+			found = true;
+		else {
+			if (verificateVisitedNods(nrVisited, path[min(k)].nume) == false) {
+				path[min(k)].suma = 0;
+
+			}
+			else {
+				nrVisited++;
+					visited[nrVisited].nume = s[min(k)];
+					visited[nrVisited].suma = t[0][min(k)];
+
+					for (int j = B; j <= E; j++) {
+						if (t[min(k)][j] != 0) {
+							k++;
+							path[k].nume = s[j];
+							path[k].suma = visited[nrVisited].suma + t[min(k)][j];
+							if ((path[k].nume == 'D') && (solution > path[k].suma))
+								solution = path[k].suma;
+						}
+					}
+					path[min(k)].suma = 0;
+			}
+		}
+	}
+	std::cout << "Cea mai scurta cale:"<<solution;
+	std::cout << std::endl;
+	system("pause");
+}
