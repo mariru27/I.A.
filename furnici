@@ -1,0 +1,100 @@
+#include<iostream>
+
+float rho = 0.01;
+char orase[10][50] = {
+	"Craiova",
+	"Valcea",
+	"Sibiu",
+	"Brasov",
+	"Bucuresti",
+	"Pitesti",
+};
+enum {
+	Cr,
+	Va,
+	Si,
+	Br,
+	Bu,
+	Pi,
+};
+
+float random() {
+	float r = rand() % 10;
+	if (r == 0)
+		return 0; 
+	else
+		return 1 / r;
+}
+
+int traseu[10][10]{};
+int listaTabu[10][10]{};
+int nrlista = -1;
+
+void print() {
+	for (int i = 0; i <= Pi; i++) {
+		for (int j = 0; j <= Pi; j++) {
+			std::cout << traseu[i][j] << " | ";
+		}
+		std::cout << std::endl;
+	}
+}
+
+void cautare() {
+	int inceput = Cr;
+	while () {
+		//float rezultat[10];
+		for (int k = 0; k <= 10; k++) {
+			float suma = 0;
+			int nrRezultat = -1;
+			struct Rez {
+				float rez;
+				int j;
+				//	int j;
+			};
+			Rez rezultat[10];
+			for (int i = Va; i <= Pi; i++) {
+				if (traseu[inceput][i] != 0) {
+					nrRezultat++;
+					rezultat[nrRezultat].rez = 1 / traseu[inceput][i];
+					suma = rezultat[nrRezultat].rez;
+					rezultat[nrRezultat].j = i;
+				}
+			}
+			for (int i = 0; i <= nrRezultat; i++) {
+				if (i != 0) {
+					rezultat[i].rez = rezultat[i].rez + rezultat[i - 1].rez;
+				}
+			}
+			int r = random();
+			int indice = 0;
+			for (int i = 0; i <= nrRezultat - 1; i++) {
+				if (nrRezultat > 0 && r > rezultat[i].rez && r <= rezultat[i + 1].rez) {
+					indice = rezultat[i + 1].j;
+				}
+			}
+			listaTabu[k][indice] =
+		}
+	}
+}
+
+void main() {
+	traseu[Cr][Va] = 146;
+	traseu[Va][Cr] = 146;
+	traseu[Va][Si] = 80;
+	traseu[Si][Va] = 80;
+	traseu[Si][Br] = 142;
+	traseu[Br][Si] = 142;
+	traseu[Br][Bu] = 161;
+	traseu[Bu][Br] = 161;
+	traseu[Bu][Pi] = 101;
+	traseu[Pi][Bu] = 101;
+	traseu[Pi][Br] = 149;
+	traseu[Br][Pi] = 149;
+	traseu[Pi][Va] = 97;
+	traseu[Va][Pi] = 97;
+
+	//print();
+
+
+	system("pause");
+}
