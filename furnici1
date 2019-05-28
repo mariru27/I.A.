@@ -1,0 +1,140 @@
+#include<iostream>
+
+float rho = 0.01;
+char orase[10][50] = {
+	"Craiova",
+	"Valcea",
+	"Sibiu",
+	"Brasov",
+	"Bucuresti",
+	"Pitesti",
+};
+
+enum {
+	Cr,
+	Va,
+	Si,
+	Br,
+	Bu,
+	Pi,
+};
+
+float random() {
+	float r = rand() % 10;
+	if (r == 0)
+		return 0;
+	else
+		return 1 / r;
+}
+
+float traseu[10][10]{};
+int listaTabu[10][10]{};
+int nrlista = 0;
+int nrfurnici = 5;
+
+bool verificat(int i, int j, int n,int val) {
+	for (int j = 0; j <= n; j++) {
+		if (listaTabu[i][j] == val)
+			return false;
+	}
+	return true;
+}
+
+void print() {
+	for (int i = 0; i <= Pi; i++) {
+		for (int j = 0; j <= Pi; j++) {
+			std::cout << traseu[i][j] << " | ";
+		}
+		std::cout << std::endl;
+	}
+}
+
+void cautare() {
+	int iteratii = 0;
+
+	while (iteratii != 10) {
+		
+	}
+}
+
+
+
+
+
+
+
+//void cautare() {
+//	int iteratii = -1;
+//
+//	while (iteratii != 10) {
+//		iteratii++;
+//		
+//		for (int furnica = 0; furnica <= nrfurnici; furnica++) {
+//			int oras1 = 0;
+//			int oras2 = -1;
+//			float suma = 0;
+//			while (oras1 != oras2) {
+//				oras2 = oras1;
+//				for (int i = 0; i <= Pi; i++) {
+//					if (traseu[listaTabu[furnica][oras1]][i] != 0) {
+//						if (verificat(listaTabu[furnica][oras1], i, oras1, i) == false)
+//							traseu[listaTabu[furnica][oras1]][i] = 0;
+//						else {
+//							traseu[listaTabu[furnica][oras1]][i] = 1 / traseu[listaTabu[furnica][oras1]][i];
+//							suma = suma + traseu[listaTabu[furnica][oras1]][i];
+//							//	oras1++;
+//						}
+//					}
+//				}
+//				//oras1 = oras2;
+//				float temp1 = 0;
+//				for (int i = 0; i <= Pi; i++) {
+//					if (traseu[listaTabu[furnica][oras1]][i] != 0) {
+//						traseu[listaTabu[furnica][oras1]][i] = (traseu[listaTabu[furnica][oras1]][i] / suma) + temp1;
+//						temp1 = traseu[listaTabu[furnica][oras1]][i];
+//						//oras1++;
+//					}
+//				}
+//				float r = random();
+//				float temp = 0;
+//				//oras1 = oras2;
+//				
+//				for (int i = 0; i <= Pi; i++) {
+//					if (traseu[listaTabu[furnica][oras1]][i] != 0) {
+//						if (r <= traseu[listaTabu[furnica][oras1]][i] && temp <= r && verificat(listaTabu[furnica][oras1],i,oras1,i)== true) {
+//							oras1++;
+//							listaTabu[furnica][oras1] = i;
+//							break;
+//						}
+//						temp = traseu[listaTabu[furnica][oras1]][i];
+//					}
+//				}
+//			}
+//
+//		}
+//	}
+//}
+
+void main() {
+	traseu[Cr][Va] = 146;
+	traseu[Va][Cr] = 146;
+	traseu[Va][Si] = 80;
+	traseu[Si][Va] = 80;
+	traseu[Si][Br] = 142;
+	traseu[Br][Si] = 142;
+	traseu[Br][Bu] = 161;
+	traseu[Bu][Br] = 161;
+	traseu[Bu][Pi] = 101;
+	traseu[Pi][Bu] = 101;
+	traseu[Pi][Br] = 149;
+	traseu[Br][Pi] = 149;
+	traseu[Pi][Va] = 97;
+	traseu[Va][Pi] = 97;
+	traseu[Pi][Cr] = 138;
+	traseu[Cr][Pi] = 138;
+
+	//print();
+	cautare();
+
+	system("pause");
+}
